@@ -1,6 +1,6 @@
 import type { InputHelper } from '@/types/form';
 import classNames from 'classnames';
-import styles from './form.module.css';
+import styles from './Form.module.css';
 
 type HelperProps = {
   helper: InputHelper;

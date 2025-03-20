@@ -3,7 +3,7 @@ import { forwardRef, memo } from 'react';
 import classNames from 'classnames';
 
 import Helper from './Helper';
-import styles from './form.module.css';
+import styles from './Form.module.css';
 
 type BaseInputComponent = typeof BaseInput & { Helper: typeof Helper };
 
