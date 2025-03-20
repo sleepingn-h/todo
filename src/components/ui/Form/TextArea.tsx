@@ -2,7 +2,7 @@ import type { TextAreaProps } from '@/types/form';
 import classNames from 'classnames';
 import { forwardRef, memo } from 'react';
 import Helper from './Helper';
-import styles from './form.module.css';
+import styles from './Form.module.css';
 
 const TextArea = memo(
   forwardRef<HTMLTextAreaElement, TextAreaProps>(
