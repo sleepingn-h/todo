@@ -1,0 +1,35 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 750px;
+  margin: auto;
+  min-height: 70vh;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: inherit;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    input {
+      border: 1px solid #efefef;
+      height: 50px;
+      padding: 0.2rem 0.7rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .info {
+      font-size: 0.8rem;
+      color: red;
+    }
+  }
+}
