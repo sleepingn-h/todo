@@ -1,15 +1,19 @@
 import type { RadioGroupContextType, RadioGroupProps, RadioProps } from '@/types/radio';
 import { createContext, useContext } from 'react';
 import { Radio } from './Radio';
+import styles from './Radio.module.css';
+import classNames from 'classnames';
 
 const RadioGroupContext = createContext<RadioGroupContextType | undefined>(undefined);
 
 export const RadioGroup: React.FC<RadioGroupProps> & {
   Radio: React.FC<RadioProps>;
-} = ({ children, name, value, onChange }) => {
+} = ({ children, name, value, onChange, className }) => {
+  const radioClassName = classNames(styles.radio, className);
+
   return (
     <RadioGroupContext.Provider value={{ name, selectedValue: value, onChange }}>
-      <div className='flex flex-col space-y-2'>{children}</div>
+      <div className={radioClassName}>{children}</div>
     </RadioGroupContext.Provider>
   );
 };

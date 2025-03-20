@@ -2,6 +2,7 @@ export type RadioGroupProps = {
   children: React.ReactNode;
   name: string;
   value: string;
+  className: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -20,6 +21,7 @@ export type BaseRadioProps = {
   name: string;
   value: string;
   options: RadioOption[];
+  className: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 

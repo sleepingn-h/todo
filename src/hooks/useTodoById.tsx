@@ -6,7 +6,7 @@ const useTodoById = (todoId: string) => {
   const queryClient = useQueryClient();
   const { todoService } = useTodoApi();
 
-  const todoQuery = useQuery<FetchTodo, Error>({
+  const todoQuery = useQuery<FetchTodo | FetchTodo[], Error>({
     queryKey: ['todos', todoId],
     queryFn: () => todoService.fetchTodo(todoId),
     staleTime: 1000 * 6 * 5,

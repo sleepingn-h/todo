@@ -9,7 +9,7 @@ export const Radio: React.FC<RadioProps> = ({ value, label }) => {
   const radioClassName = classNames(selectedValue === value ? styles.selected : '');
 
   return (
-    <label className={styles.radio}>
+    <label className={styles.label}>
       <input
         type='radio'
         name={name}

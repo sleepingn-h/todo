@@ -26,7 +26,6 @@ const TodoSorting = () => {
   const [order, orderChange] = useState<TodoOptions<OrderType>>(
     getQueryParams('order', orderOptions) ?? orderOptions[0]
   );
-  console.log(sort);
 
   const setSort = <T extends string>(
     target: string,

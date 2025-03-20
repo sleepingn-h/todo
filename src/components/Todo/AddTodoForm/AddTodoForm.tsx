@@ -39,7 +39,7 @@ const AddTodoForm = ({ todo, isOpen, onAdd, onClose }: AddTodoFormProps) => {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <form className={styles.form} onSubmit={onSubmit}>
-        <PriorityRadioForm form={form} onChange={onChange} />
+        <PriorityRadioForm form={form} onChange={onChange} className={styles.radio} />
         <TextInput
           label='제목'
           id='title'

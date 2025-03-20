@@ -91,7 +91,6 @@ const useTodos = (id?: string) => {
 };
 
 function getFilteredTodo(todos: FetchTodo[], params: FilteredTodosProps): FetchTodo[] {
-  console.log(params);
   const { priorityFilter, keyword, order } = params;
 
   return (todos || [])

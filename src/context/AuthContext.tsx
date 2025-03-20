@@ -54,21 +54,6 @@ export function AuthProvider({ authService, authErrorEventBus, children }: AuthP
 
   const logIn = useCallback(
     async (email: string, password: string) => {
-      // try {
-      //   const user = await authService.login(email, password);
-      //   if (user.status === 'SUCCESS') {
-      //     setUser({ token: user.token ?? '' });
-      //   }
-      //   return user;
-      // } catch (error) {
-      //   if (error instanceof Error) {
-      //     // setErrorMessage(error.message); // 여기서 에러 처리
-      //     return { status: 'FAIL', message: error.message };
-      //   }
-      //   console.error('로그인 중 오류 발생:', error);
-      //   // setErrorMessage('서버 오류가 발생했습니다. 다시 시도해 주세요.');
-      //   return { status: 'FAIL', message: '알 수 없는 오류가 발생했습니다.' };
-      // }
       const user = await authService.login(email, password);
 
       if (user.status === 'SUCCESS') {
