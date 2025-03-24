@@ -18,6 +18,7 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setFocus,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
@@ -31,15 +32,16 @@ const LoginPage = () => {
       const res = await logIn(email, password);
 
       if (res.status === 'SUCCESS') {
+        setIsSubmitting(false);
         navigate('/');
       } else {
-        // alert(res?.message || '로그인 실패');
+        alert('로그인에 실패하였습니다.');
+        setIsSubmitting(false);
+        setFocus('email');
       }
     } catch (error) {
       console.error('로그인 중 오류 발생:', error);
       alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -50,7 +52,7 @@ const LoginPage = () => {
           <TextInput
             label='이메일'
             id='email'
-            placeholder='Please enter your email '
+            placeholder='Please enter your email'
             {...register('email', { required: true })}
           />
           {errors.email && <p className={styles.info}>{errors.email.message}</p>}

@@ -13,7 +13,7 @@ import {
 
 type AuthContextType = {
   user?: User | null;
-  signUp: (email: string, password: string, cpassword: string) => Promise<void>;
+  signUp: (email: string, password: string, cpassword: string) => Promise<AuthUser>;
   logIn: (email: string, password: string) => Promise<AuthUser>;
   logout: () => Promise<void>;
 };
@@ -48,6 +48,8 @@ export function AuthProvider({ authService, authErrorEventBus, children }: AuthP
       if (user.status === 'SUCCESS') {
         setUser({ token: user.token ?? '' });
       }
+
+      return user;
     },
     [authService]
   );
