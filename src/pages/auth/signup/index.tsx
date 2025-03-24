@@ -61,6 +61,7 @@ const SignupPage = () => {
           <TextInput
             label='비밀번호'
             id='password'
+            type='password'
             placeholder='Please enter your password '
             {...register('password', { required: true })}
           />
@@ -69,6 +70,7 @@ const SignupPage = () => {
         <div className={styles.inputs}>
           <TextInput
             label='비밀번호 확인'
+            type='password'
             id='cpassword'
             placeholder='Please enter your password '
             {...register('cpassword', { required: true })}
