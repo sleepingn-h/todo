@@ -10,14 +10,7 @@ const Layout = () => {
 
   return (
     <>
-      <Header
-        user={
-          user ?? {
-            token: '',
-          }
-        }
-        onLogout={onLogout}
-      />
+      <Header user={user} onLogout={onLogout} />
       <main className={styles.main}>
         <Outlet />
       </main>

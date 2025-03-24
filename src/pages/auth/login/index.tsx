@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/context/AuthContext';
 
 import Button from '@/components/ui/Button/Button';
+import TextInput from '@/components/ui/Form/TextInput';
 
 import styles from '@/components/ui/Form/Form.module.css';
 
@@ -46,9 +47,8 @@ const LoginPage = () => {
     <section className={styles.section}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className={styles.inputs}>
-          <label htmlFor='email'>이메일</label>
-          <input
-            type='email'
+          <TextInput
+            label='이메일'
             id='email'
             placeholder='Please enter your email '
             {...register('email', { required: true })}
@@ -56,9 +56,8 @@ const LoginPage = () => {
           {errors.email && <p className={styles.info}>{errors.email.message}</p>}
         </div>
         <div className={styles.inputs}>
-          <label htmlFor='password'>비밀번호</label>
-          <input
-            type='password'
+          <TextInput
+            label='비밀번호'
             id='password'
             placeholder='Please enter your password '
             {...register('password', { required: true })}

@@ -7,7 +7,7 @@ import { LuListTodo } from 'react-icons/lu';
 import styles from '@components/layout/Layout.module.css';
 
 type Props = {
-  user: User;
+  user?: User | null;
   onLogout: () => void;
 };
 
