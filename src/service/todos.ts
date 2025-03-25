@@ -1,6 +1,6 @@
+import type { FetchTodo } from '@/types/todo';
 import TokenStorage from '@/service/token';
-import HttpClient from '@/service/http';
-import { FetchTodo } from '@/types/todo';
+import HttpClient, { FetchOptions } from '@/service/http';
 
 type TodosData = { data: FetchTodo[] };
 type TodoData = { data: FetchTodo };
@@ -48,12 +48,14 @@ export default class TodoService implements ITodoService {
     const { title, content, priority } = todoItem;
 
     return await this.http.fetch('/todos', {
-      method: 'POST',
+      method: 'POST' as const,
       body: JSON.stringify({ title, content, priority }),
       headers: {
-        Authorization: this.tokenStorage.getToken() as string,
+        'Content-Type': 'application/json',
+        Authorization: this.tokenStorage.getToken() ?? '',
       },
-    });
+      credentials: 'include',
+    } satisfies FetchOptions);
   }
 
   async updateTodo(todoItem: FetchTodo, todoId: string): Promise<void> {

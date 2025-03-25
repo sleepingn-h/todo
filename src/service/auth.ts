@@ -45,9 +45,10 @@ export default class AuthService implements IAuthService {
 
     try {
       const data = await this.http.fetch<AuthUser>(`/users/login`, {
-        method: 'POST',
+        method: 'POST' as const,
         body: JSON.stringify({ email, password }),
-      });
+        credentials: 'include',
+      } satisfies RequestInit);
 
       this.tokenStorage.saveToken(data.token as string);
 
