@@ -61,6 +61,7 @@ const LoginPage = () => {
           <TextInput
             label='비밀번호'
             id='password'
+            type='password'
             placeholder='Please enter your password '
             {...register('password', { required: true })}
           />
