@@ -24,41 +24,41 @@ export default class AuthService implements IAuthService {
       throw new Error('이메일/비밀번호를 다시 확인해주세요.');
     }
 
-    // try {
-    //   const data = await this.http.fetch(`/users/login`, {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       email,
-    //       password,
-    //     }),
-    //   });
-
-    //   this.tokenStorage.saveToken(data.token);
-
-    //   return { status: 'SUCCESS', message: data.message, token: data.token };
-    // } catch (error) {
-    //   if (error instanceof Error) {
-    //     throw new Error(error.message || '알 수 없는 오류가 발생했습니다.');
-    //   }
-    //   throw new Error('알 수 없는 오류가 발생했습니다.');
-    // }
-
     try {
-      const data = await this.http.fetch<AuthUser>(`/users/login`, {
-        method: 'POST' as const,
-        body: JSON.stringify({ email, password }),
-        credentials: 'include',
-      } satisfies RequestInit);
+      const data = await this.http.fetch(`/users/login`, {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-      this.tokenStorage.saveToken(data.token as string);
+      this.tokenStorage.saveToken(data.token);
 
       return { status: 'SUCCESS', message: data.message, token: data.token };
     } catch (error) {
       if (error instanceof Error) {
-        return { status: 'FAIL', message: error.message || '알 수 없는 오류가 발생했습니다.' };
+        throw new Error(error.message || '알 수 없는 오류가 발생했습니다.');
       }
-      return { status: 'FAIL', message: '알 수 없는 오류가 발생했습니다.' };
+      throw new Error('알 수 없는 오류가 발생했습니다.');
     }
+
+    // try {
+    //   const data = await this.http.fetch<AuthUser>(`/users/login`, {
+    //     method: 'POST' as const,
+    //     body: JSON.stringify({ email, password }),
+    //     credentials: 'include',
+    //   } satisfies RequestInit);
+
+    //   this.tokenStorage.saveToken(data.token as string);
+
+    //   return { status: 'SUCCESS', message: data.message, token: data.token };
+    // } catch (error) {
+    //   if (error instanceof Error) {
+    //     return { status: 'FAIL', message: error.message || '알 수 없는 오류가 발생했습니다.' };
+    //   }
+    //   return { status: 'FAIL', message: '알 수 없는 오류가 발생했습니다.' };
+    // }
   }
 
   async me(): Promise<User | null> {

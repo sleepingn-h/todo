@@ -1,8 +1,7 @@
 export type FetchOptions = {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  headers?: HeadersInit;
+  headers?: Record<string, string>;
   body?: string | null;
-  credentials?: RequestCredentials;
 };
 
 interface IHttpClient {
@@ -21,7 +20,6 @@ export default class HttpClient implements IHttpClient {
         'Content-type': 'application/json',
         ...options.headers,
       },
-      credentials: 'include',
     });
 
     let data;

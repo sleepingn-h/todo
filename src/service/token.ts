@@ -1,5 +1,3 @@
-const TOKEN = 'token';
-
 interface ITokenStorage {
   saveToken(token: string): void;
   getToken(): string | null;
@@ -7,12 +5,13 @@ interface ITokenStorage {
 }
 
 export default class TokenStorage implements ITokenStorage {
+  constructor(private token: string) {}
   saveToken(token: string) {
-    localStorage.setItem(TOKEN, token);
+    localStorage.setItem(this.token, token);
   }
 
   getToken() {
-    return localStorage.getItem(TOKEN);
+    return localStorage.getItem(this.token);
   }
 
   clearToken() {
