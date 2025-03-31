@@ -1,6 +1,6 @@
 import { DropdownContextProps, DropdownProviderProps } from '@/types/dropdown';
 import { createContext, useContext, useEffect } from 'react';
-import useDropdown from '@/hooks/useDropdown';
+import useDropdown from '@/components/ui/Dropdown/useDropdown';
 
 const DropdownContext = createContext<DropdownContextProps | null>(null);
 

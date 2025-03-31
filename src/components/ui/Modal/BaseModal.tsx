@@ -1,5 +1,5 @@
 import type { BaseModalProps } from '@/types/modal';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/components/ui/Modal/useModal';
 
 import ModalPortal from './ModalPortal';
 
