@@ -1,6 +1,6 @@
 import type { FetchTodo } from '@/types/todo';
 import TokenStorage from '@/service/token';
-import HttpClient from '@/service/http';
+import { IHttpClient } from '@/service/http';
 
 type TodosData = { data: FetchTodo[] };
 type TodoData = { data: FetchTodo };
@@ -13,7 +13,7 @@ export interface ITodoService {
 }
 
 export default class TodoService implements ITodoService {
-  constructor(private http: HttpClient, private tokenStorage: TokenStorage) {
+  constructor(private http: IHttpClient, private tokenStorage: TokenStorage) {
     this.http = http;
     this.tokenStorage = tokenStorage;
   }
@@ -29,7 +29,6 @@ export default class TodoService implements ITodoService {
         Authorization: this.tokenStorage.getToken() as string,
       },
     });
-    console.log(todo);
 
     return todo.data ?? [];
   }

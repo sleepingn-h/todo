@@ -15,6 +15,7 @@ export function formatPriorityToLocale(priority: string): string {
     case 'low':
       return '낮음';
     default:
+      console.log(priority);
       throw new Error(`알수 없는 ${priority} 값입니다.`);
   }
 }

@@ -4,7 +4,7 @@ export type FetchOptions = {
   body?: string | null;
 };
 
-interface IHttpClient {
+export interface IHttpClient {
   fetch: <T>(url: string, options: FetchOptions) => Promise<T>;
 }
 

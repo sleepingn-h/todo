@@ -30,7 +30,6 @@ const LoginPage = () => {
     try {
       const { email, password } = data;
       const res = await logIn(email, password);
-      console.log(res);
 
       if (res.status === 'SUCCESS') {
         setIsSubmitting(false);
