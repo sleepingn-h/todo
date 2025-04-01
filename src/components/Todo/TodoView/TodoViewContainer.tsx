@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 
-import useTodos from '@/hooks/useTodos';
+import useTodos from '@/hooks/todo/useTodos';
 import TodoView from './TodoView';
 import AddTodoForm from '../AddTodoForm/AddTodoForm';
 import styles from '@components/Todo/Todo.module.css';

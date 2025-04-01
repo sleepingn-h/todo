@@ -13,7 +13,7 @@ import {
   TbSortDescending,
 } from 'react-icons/tb';
 import styles from '@components/Todo/Todo.module.css';
-import useTodos from '@/hooks/useTodos';
+import useTodos from '@/hooks/todo/useTodos';
 
 const TodoSorting = () => {
   const { getQueryParams, updateQueryParams } = useTodos();

@@ -4,7 +4,7 @@ import type { FetchTodo } from '@/types/todo';
 
 import classNames from 'classnames';
 
-import useTodos from '@/hooks/useTodos';
+import useTodos from '@/hooks/todo/useTodos';
 import Button from '../ui/Button/Button';
 import TodoList from './TodoList/TodoList';
 import AddTodoForm from './AddTodoForm/AddTodoForm';
