@@ -1,29 +1,36 @@
-import type { FetchTodo } from '@/types/todo';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import classNames from 'classnames';
-
-import useTodos from '@/hooks/todo/useTodos';
-import TodoView from './TodoView';
-import AddTodoForm from '../AddTodoForm/AddTodoForm';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import useTodosMutation from '@/hooks/todo/useTodosMutation';
 import styles from '@components/Todo/Todo.module.css';
+import type { FetchTodo } from '@/types/todo';
+import { usetodoQuery } from '@/hooks/todo';
+import classNames from 'classnames';
+import { useState } from 'react';
+
+import AddTodoForm from '../AddTodoForm/AddTodoForm';
+import TodoView from './TodoView';
 
 const TodoViewContainer = () => {
-  const { todoId } = useParams();
   const navigate = useNavigate();
+  const { todoId: id } = useParams<{ todoId: string }>();
+  const { state } = useLocation() as { state?: { todo?: FetchTodo } };
   const [openModal, setOpenModal] = useState(false);
-  const {
-    todoQuery: { data: todo, isLoading, error },
-    updateTodoItem,
-    removeTodoItem,
-  } = useTodos(todoId as string);
+  const { data } = usetodoQuery(id!, state?.todo);
+  const { updateTodoItem, deleteTodoItem } = useTodosMutation();
+  const todo = (state?.todo ?? data)!;
 
-  const handleUpdate = (updated: FetchTodo) => updateTodoItem.mutate(updated);
-  const handleDelete = () =>
-    removeTodoItem.mutate(undefined, { onSuccess: () => navigate('/todos') });
+  if (!id || !todo) return null;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const handleUpdate = (updated: FetchTodo) => {
+    return updateTodoItem.mutate(updated, {
+      onSuccess: () => {
+        navigate('.', { state: { todo: updated }, replace: true });
+        setOpenModal(false);
+      },
+    });
+  };
+
+  const handleDelete = () => deleteTodoItem.mutate(id, { onSuccess: () => navigate('/todos') });
+
   if (!todo || Array.isArray(todo)) return null;
 
   return (

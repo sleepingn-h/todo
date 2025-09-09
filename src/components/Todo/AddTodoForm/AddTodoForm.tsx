@@ -1,17 +1,16 @@
+import ButtonGroup from '@/components/ui/Button/ButtonGroup';
+import { LuCircleCheckBig, LuCircleX } from 'react-icons/lu';
+import BaseModal from '@/components/ui/Modal/BaseModal';
+import TextInput from '@/components/ui/Form/TextInput';
+import styles from '@components/Todo/Todo.module.css';
+import TextArea from '@/components/ui/Form/TextArea';
 import type { ChangeEvent, FormEvent } from 'react';
+import Button from '@components/ui/Button/Button';
 import type { FetchTodo } from 'src/types/todo';
-
+import { DefalutForm } from '@/constants/todos';
 import { useRef, useState } from 'react';
 
-import BaseModal from '@/components/ui/Modal/BaseModal';
-import Button from '@components/ui/Button/Button';
-import TextInput from '@/components/ui/Form/TextInput';
-import TextArea from '@/components/ui/Form/TextArea';
-import ButtonGroup from '@/components/ui/Button/ButtonGroup';
 import PriorityRadioForm from './PriorityRadioForm';
-import { LuCircleCheckBig, LuCircleX } from 'react-icons/lu';
-
-import styles from '@components/Todo/Todo.module.css';
 
 type AddTodoFormProps = {
   todo?: FetchTodo;
@@ -22,12 +21,12 @@ type AddTodoFormProps = {
 
 const AddTodoForm = ({ todo, isOpen, onAdd, onClose }: AddTodoFormProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [form, setForm] = useState<FetchTodo>(
-    todo ?? { id: '', title: '', content: '', priority: 'normal' }
-  );
+  const [form, setForm] = useState<FetchTodo>(todo ?? DefalutForm);
+
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     onAdd(form);
+    setForm(DefalutForm);
     onClose();
   };
 

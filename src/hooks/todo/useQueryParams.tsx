@@ -1,4 +1,4 @@
-import type { PriorityType, OrderType, SortType, TodoOptions } from '@/types/todo';
+import type { PriorityType, OrderType, SortType } from '@/types/todo';
 import { useSearchParams } from 'react-router-dom';
 import { useCallback, useMemo } from 'react';
 
@@ -7,7 +7,7 @@ const useQueryParams = () => {
 
   const queryParams = useMemo(
     () => ({
-      priorityFilter: (searchParams.get('priorityFilter') as PriorityType) ?? 'all',
+      priority: (searchParams.get('priority') as PriorityType) ?? 'all',
       sort: (searchParams.get('sort') as SortType) ?? '',
       order: (searchParams.get('order') as OrderType) ?? '',
       keyword: searchParams.get('keyword') ?? '',
@@ -16,26 +16,26 @@ const useQueryParams = () => {
   );
 
   const updateQueryParams = useCallback(
-    (label: string, value: string) => {
-      const updated = new URLSearchParams(searchParams);
-      updated.set(label, value);
-      setSearchParams(updated);
-    },
-    [searchParams, setSearchParams]
-  );
+    <T extends string>(key: string, option: { label: T; value: T | '' }) => {
+      const { value } = option;
 
-  const getQueryParamValue = useCallback(
-    <T,>(label: string, options: TodoOptions<T>[]) => {
-      const value = searchParams.get(label);
-      return options.find((opt) => String(opt.value) === value) || null;
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          if (value === '' || value === 'all') next.delete(key as string);
+          else next.set(key as string, String(value));
+          return next;
+        },
+        { replace: true }
+      );
     },
-    [searchParams]
+    [setSearchParams]
   );
 
   return {
     queryParams,
+    searchParams,
     updateQueryParams,
-    getQueryParamValue,
   };
 };
 

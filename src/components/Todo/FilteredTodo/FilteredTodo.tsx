@@ -1,8 +1,8 @@
+import Dropdown from '@/components/ui/Dropdown/Dropdown';
 import type { TodoOptions } from '@/types/todo';
 import type { AriaProps } from '@/types/a11y';
-import Dropdown from '@/components/ui/Dropdown/Dropdown';
 
-type FilteredTodoProps<T> = {
+type FilteredTodoProps<T extends string> = {
   title: string;
   value: TodoOptions<T>;
   onChange: (value: TodoOptions<T>) => void;
@@ -11,7 +11,7 @@ type FilteredTodoProps<T> = {
   trigger: React.ReactElement | React.ElementType | React.ReactNode;
 };
 
-const FilteredTodo = <T extends React.Key>({
+const FilteredTodo = <T extends string>({
   title,
   trigger,
   value,

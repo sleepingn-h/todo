@@ -1,9 +1,8 @@
-import classNames from 'classnames';
-
 import { formatDateISO, formatDateToLocale, formatPriorityToLocale } from '@/util/\bformat';
-import Button from '@/components/ui/Button/Button';
 import styles from '@components/Todo/Todo.module.css';
+import Button from '@/components/ui/Button/Button';
 import { FetchTodo } from '@/types/todo';
+import classNames from 'classnames';
 
 type TodoViewProps = {
   todo: FetchTodo;
@@ -15,6 +14,7 @@ const TodoView = ({ todo, onDelete, onClick }: TodoViewProps) => {
   const { title, content, createdAt, priority } = todo;
   const translatePriorityLang = formatPriorityToLocale(priority);
 
+  // console.log('view', todo);
   return (
     <section className={classNames(styles.view, styles.todo)}>
       <div className={styles.top}>

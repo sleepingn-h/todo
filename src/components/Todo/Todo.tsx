@@ -1,25 +1,19 @@
+import useTodosMutation from '@/hooks/todo/useTodosMutation';
+import useTodosQuery from '@/hooks/todo/useTodosQuery';
+import styles from '@components/Todo/Todo.module.css';
+import type { FetchTodo } from '@/types/todo';
+import { LuListTodo } from 'react-icons/lu';
+import classNames from 'classnames';
 import { useState } from 'react';
 
-import type { FetchTodo } from '@/types/todo';
-
-import classNames from 'classnames';
-
-import useTodos from '@/hooks/todo/useTodos';
-import Button from '../ui/Button/Button';
-import TodoList from './TodoList/TodoList';
 import AddTodoForm from './AddTodoForm/AddTodoForm';
-import { LuListTodo } from 'react-icons/lu';
-
-import styles from '@components/Todo/Todo.module.css';
+import TodoList from './TodoList/TodoList';
+import Button from '../ui/Button/Button';
 
 const Todo = () => {
   const [openModal, setOpenModal] = useState(false);
-
-  const {
-    filteredTodos: todos,
-    todoQuery: { isLoading, error },
-    createTodoItem,
-  } = useTodos();
+  const { data: todos, isLoading, error } = useTodosQuery();
+  const { createTodoItem } = useTodosMutation();
 
   const handleAdd = (todo: FetchTodo) => createTodoItem.mutate(todo);
 

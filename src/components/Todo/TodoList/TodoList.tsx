@@ -1,14 +1,10 @@
-import type { FetchTodo } from '@/types/todo';
-import { useLocation } from 'react-router-dom';
-
-import TodoItem from '../TodoItem/TodoItem';
-import TodoSorting from '../TodoSorting/TodoSorting';
-
 import styles from '@components/Todo/Todo.module.css';
+import type { FetchTodo } from '@/types/todo';
+
+import TodoSorting from '../TodoSorting/TodoSorting';
+import TodoItem from '../TodoItem/TodoItem';
 
 const TodoList = ({ todos }: { todos: FetchTodo[] }) => {
-  const location = useLocation();
-
   return (
     <>
       <div className={styles.sorting}>
@@ -21,7 +17,7 @@ const TodoList = ({ todos }: { todos: FetchTodo[] }) => {
           <>
             {todos?.map((todo) => (
               <li key={todo.id}>
-                <TodoItem todo={todo} id={`${todo.id}${location.search ?? ''}`} />
+                <TodoItem todo={todo} id={todo.id} />
               </li>
             ))}
           </>

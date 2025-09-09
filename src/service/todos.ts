@@ -1,15 +1,16 @@
-import type { FetchTodo } from '@/types/todo';
-import TokenStorage from '@/service/token';
+import type { TodoResponse, FetchTodo } from '@/types/todo';
 import { IHttpClient } from '@/service/http';
+import TokenStorage from '@/service/token';
 
 type TodosData = { data: FetchTodo[] };
 type TodoData = { data: FetchTodo };
 
 export interface ITodoService {
-  fetchTodo: (todoId?: string) => Promise<FetchTodo[] | FetchTodo>;
-  createTodo: (todoItem: FetchTodo) => Promise<void>;
-  updateTodo: (todoItem: FetchTodo, todoId: string) => Promise<void>;
-  deleteTodo: (todoId: string) => Promise<void>;
+  fetchTodo: () => Promise<FetchTodo[]>;
+  fetchTodoById: (id: string) => Promise<FetchTodo>;
+  createTodo: (todo: FetchTodo) => Promise<TodoResponse>;
+  updateTodo: (todo: FetchTodo) => Promise<FetchTodo>;
+  deleteTodo: (id: string) => Promise<void>;
 }
 
 export default class TodoService implements ITodoService {
@@ -18,8 +19,12 @@ export default class TodoService implements ITodoService {
     this.tokenStorage = tokenStorage;
   }
 
-  async fetchTodo(todoId?: string): Promise<FetchTodo[] | FetchTodo> {
-    return todoId ? this.getTodoById(todoId) : this.getTodos();
+  async fetchTodoById(id: string): Promise<FetchTodo> {
+    return this.getTodoById(id);
+  }
+
+  async fetchTodo(): Promise<FetchTodo[]> {
+    return this.getTodos();
   }
 
   private async getTodos(): Promise<FetchTodo[]> {
@@ -33,19 +38,19 @@ export default class TodoService implements ITodoService {
     return todo.data ?? [];
   }
 
-  private async getTodoById(todoId: string): Promise<FetchTodo> {
-    const todo = await this.http.fetch<TodoData>(`/todos/${todoId}`, {
+  private async getTodoById(id: string): Promise<FetchTodo> {
+    const todo = await this.http.fetch<TodoData>(`/todos/${id}`, {
       method: 'GET',
       headers: {
         Authorization: this.tokenStorage.getToken() as string,
       },
     });
 
-    return todo.data ?? {};
+    return todo.data;
   }
 
-  async createTodo(todoItem: FetchTodo): Promise<void> {
-    const { title, content, priority } = todoItem;
+  async createTodo(todo: FetchTodo): Promise<TodoResponse> {
+    const { title, content, priority } = todo;
 
     return await this.http.fetch('/todos', {
       method: 'POST',
@@ -56,10 +61,12 @@ export default class TodoService implements ITodoService {
     });
   }
 
-  async updateTodo(todoItem: FetchTodo, todoId: string): Promise<void> {
-    const { title, content, priority } = todoItem;
+  async updateTodo(todo: FetchTodo): Promise<FetchTodo> {
+    console.log(todo);
 
-    return await this.http.fetch(`/todos/${todoId}`, {
+    const { title, content, priority } = todo;
+
+    return await this.http.fetch(`/todos/${todo.id}`, {
       method: 'PUT',
       body: JSON.stringify({ title, content, priority }),
       headers: {
@@ -68,8 +75,8 @@ export default class TodoService implements ITodoService {
     });
   }
 
-  async deleteTodo(todoId: string): Promise<void> {
-    return await this.http.fetch(`/todos/${todoId}`, {
+  async deleteTodo(id: string): Promise<void> {
+    return await this.http.fetch(`/todos/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: this.tokenStorage.getToken() as string,

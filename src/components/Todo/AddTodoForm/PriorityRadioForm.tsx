@@ -1,7 +1,7 @@
 import type { FetchTodo, PriorityType } from '@/types/todo';
-import { useState } from 'react';
-import { priorityOptions } from '@/constants/todos';
 import BaseRadio from '@/components/ui/Radio/BaseRadio';
+import { priorityOptions } from '@/constants/todos';
+import { useState } from 'react';
 
 type PriorityRadioFormProps = {
   form: FetchTodo;

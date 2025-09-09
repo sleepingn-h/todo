@@ -39,6 +39,6 @@ export default class HttpClient implements IHttpClient {
       }
     }
 
-    return data;
+    return data as T;
   }
 }

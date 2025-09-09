@@ -28,4 +28,5 @@ export type BaseRadioProps = {
 export type RadioOption = {
   value: string;
   label: string;
+  exception?: boolean;
 };

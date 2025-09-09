@@ -145,7 +145,7 @@ const useTodos = (id?: string) => {
 
 - **sort** (string, optional): 정렬 기준 (`createdAt`, `updatedAt`, `priority`)
 - **order** (string, optional): 정렬 순서 (`asc` 또는 `desc`)
-- **priorityFilter** (string, optional): 우선순위 필터링 (`urgent`, `normal`, `low`)
+- **priority** (string, optional): 우선순위 필터링 (`urgent`, `normal`, `low`)
 - **keyword** (string, optional): 제목 또는 내용에서 검색할 키워드
 - **countOnly** (boolean, optional): `true`로 설정하면 할 일의 개수만 반환
 
@@ -176,9 +176,9 @@ const useTodos = (id?: string) => {
 
 예시 사용법:
 
-- **우선순위 필터링**: `/todos?priorityFilter=urgent`
+- **우선순위 필터링**: `/todos?priority=urgent`
 - **정렬 및 순서 지정**: `/todos?sort=createdAt&order=desc`
-- **조합된 조건**: `/todos?priorityFilter=normal&sort=updatedAt&order=asc&keyword=project`
+- **조합된 조건**: `/todos?priority=normal&sort=updatedAt&order=asc&keyword=project`
 
 ---
 

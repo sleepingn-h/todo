@@ -1,12 +1,13 @@
+import TodosIndexRedirect from '@/pages/todos/TodosIndexRedirect';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
-import ProtectedRoute from './ProtectedRoute';
 import Layout from '@components/layout/Layout';
-import HomePage from '@/pages';
-import LoginPage from '@/pages/auth/login';
 import SignupPage from '@/pages/auth/signup';
+import LoginPage from '@/pages/auth/login';
 import NotFound from '@/pages/not-found';
 import TodoPage from '@/pages/todos';
+import HomePage from '@/pages';
+
+import ProtectedRoute from './ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
+          { index: true, element: <TodosIndexRedirect /> },
           {
             path: ':todoId',
             element: <TodoPage />,

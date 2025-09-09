@@ -1,7 +1,9 @@
-import { OrderType, PriorityType, SortType, type TodoOptions } from '@/types/todo';
+import { FetchTodo, OrderType, PriorityType, SortType, type TodoOptions } from '@/types/todo';
+
+export const DefalutForm: FetchTodo = { id: '', title: '', content: '', priority: 'normal' };
 
 export const priorityOptions: TodoOptions<PriorityType>[] = [
-  { value: 'all', label: '전체' },
+  { value: 'all', label: '전체', exception: true },
   { value: 'urgent', label: '긴급' },
   { value: 'normal', label: '보통' },
   { value: 'low', label: '낮음' },
