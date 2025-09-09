@@ -8,7 +8,7 @@ const useTodoQuery = (id: string, initial?: FetchTodo) => {
 
   return useQuery<FetchTodo, Error, FetchTodo>({
     queryKey: ['todos', id],
-    queryFn: () => todoService.fetchTodoById(id),
+    queryFn: () => todoService.getTodoById(id),
     enabled: !!id,
     initialData: () => {
       if (initial && initial.id === id) return initial;

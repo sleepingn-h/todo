@@ -6,8 +6,8 @@ type TodosData = { data: FetchTodo[] };
 type TodoData = { data: FetchTodo };
 
 export interface ITodoService {
-  fetchTodo: () => Promise<FetchTodo[]>;
-  fetchTodoById: (id: string) => Promise<FetchTodo>;
+  getTodos: () => Promise<FetchTodo[]>;
+  getTodoById: (id: string) => Promise<FetchTodo>;
   createTodo: (todo: FetchTodo) => Promise<TodoResponse>;
   updateTodo: (todo: FetchTodo) => Promise<FetchTodo>;
   deleteTodo: (id: string) => Promise<void>;
@@ -19,15 +19,7 @@ export default class TodoService implements ITodoService {
     this.tokenStorage = tokenStorage;
   }
 
-  async fetchTodoById(id: string): Promise<FetchTodo> {
-    return this.getTodoById(id);
-  }
-
-  async fetchTodo(): Promise<FetchTodo[]> {
-    return this.getTodos();
-  }
-
-  private async getTodos(): Promise<FetchTodo[]> {
+  async getTodos(): Promise<FetchTodo[]> {
     const todo = await this.http.fetch<TodosData>('/todos', {
       method: 'GET',
       headers: {
@@ -38,7 +30,7 @@ export default class TodoService implements ITodoService {
     return todo.data ?? [];
   }
 
-  private async getTodoById(id: string): Promise<FetchTodo> {
+  async getTodoById(id: string): Promise<FetchTodo> {
     const todo = await this.http.fetch<TodoData>(`/todos/${id}`, {
       method: 'GET',
       headers: {

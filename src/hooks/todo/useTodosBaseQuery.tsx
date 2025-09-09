@@ -9,7 +9,7 @@ export const useTodosBaseQuery = () => {
 
   return useQuery<FetchTodo[]>({
     queryKey: ['todos'],
-    queryFn: async () => await todoService.fetchTodo(),
+    queryFn: async () => await todoService.getTodos(),
     staleTime: 1000 * 60 * 5,
   });
 };

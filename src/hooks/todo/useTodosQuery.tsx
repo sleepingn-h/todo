@@ -28,7 +28,7 @@ const useTodosQuery = () => {
       if (cached) return sortTodos(cached, params);
 
       // 2) 없으면 fetch → 원본 캐시에 저장 → 정렬
-      const fetched = await todoService.fetchTodo();
+      const fetched = await todoService.getTodos();
       queyrClient.setQueryData<FetchTodo[]>(['todos'], fetched);
       return sortTodos(fetched, params);
     },
