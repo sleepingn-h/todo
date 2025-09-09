@@ -2,19 +2,20 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useTodosMutation from '@/hooks/todo/useTodosMutation';
 import styles from '@components/Todo/Todo.module.css';
 import type { FetchTodo } from '@/types/todo';
-import { usetodoQuery } from '@/hooks/todo';
+import { useTodoQuery } from '@/hooks/todo';
 import classNames from 'classnames';
 import { useState } from 'react';
 
 import AddTodoForm from '../AddTodoForm/AddTodoForm';
 import TodoView from './TodoView';
 
+
 const TodoViewContainer = () => {
   const navigate = useNavigate();
   const { todoId: id } = useParams<{ todoId: string }>();
   const { state } = useLocation() as { state?: { todo?: FetchTodo } };
   const [openModal, setOpenModal] = useState(false);
-  const { data } = usetodoQuery(id!, state?.todo);
+  const { data } = useTodoQuery(id!, state?.todo);
   const { updateTodoItem, deleteTodoItem } = useTodosMutation();
   const todo = (state?.todo ?? data)!;
 
