@@ -1,25 +1,43 @@
-import { forwardRef, memo } from 'react';
-
-import type { ButtonProps } from '@/types/button';
-
-import classNames from 'classnames';
+import type { ButtonProps as BaseProps } from '@/types/button';
+import { Link, type LinkProps } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+import { forwardRef, memo } from 'react';
+import classNames from 'classnames';
+
 import styles from './Button.module.css';
 
+type AsButton = BaseProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    as?: 'button';
+  };
+
+type AsAnchor = BaseProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    as: 'a';
+    href: string;
+  };
+
+type AsRouterLink = BaseProps &
+  Omit<LinkProps, 'className'> & {
+    as: typeof Link;
+  };
+
+type ButtonProps = AsButton | AsAnchor | AsRouterLink;
+
 const Button = memo(
-  forwardRef<HTMLButtonElement, ButtonProps>(
+  forwardRef<Element, ButtonProps>(
     (
       {
+        as = 'button',
         children,
         size = 'sm',
         color = 'primary',
-        type = 'button',
         variant = 'filled',
         leftIcon,
         rightIcon,
         isLoading,
         disabled,
-        ...props
+        ...rest
       },
       ref
     ) => {
@@ -29,27 +47,73 @@ const Button = memo(
         styles[size],
         styles[color],
         styles[variant],
-        props.className
+        rest.className
       );
 
+      const content = (
+        <>
+          {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
+          <span className={styles.label}>{isLoading ? <ClipLoader /> : children}</span>
+          {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
+        </>
+      );
+
+      if (as === 'a') {
+        const props = rest as AsAnchor;
+        return (
+          <a
+            ref={ref as React.Ref<HTMLAnchorElement>}
+            {...props}
+            className={buttonClass}
+            aria-disabled={disabled || undefined}
+            tabIndex={disabled ? -1 : props.tabIndex}
+            onClick={(e) => {
+              if (disabled) {
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+              }
+              props.onClick?.(e);
+            }}
+          >
+            {content}
+          </a>
+        );
+      }
+
+      if (as === Link) {
+        const props = rest as AsRouterLink;
+        return (
+          <Link
+            ref={ref as React.Ref<HTMLAnchorElement>}
+            {...props}
+            className={buttonClass}
+            aria-disabled={disabled || undefined}
+            onClick={(e) => {
+              if (disabled) {
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+              }
+              props.onClick?.(e);
+            }}
+          >
+            {content}
+          </Link>
+        );
+      }
+
+      // default: native button
+      const props = rest as AsButton;
       return (
         <button
+          ref={ref as React.Ref<HTMLButtonElement>}
           {...props}
-          ref={ref}
-          type={type}
+          type={props.type ?? 'button'}
+          disabled={disabled}
           className={buttonClass}
-          disabled={disabled || isLoading}
         >
-          {leftIcon && <span>{leftIcon}</span>}
-          {isLoading ? (
-            <span>
-              로딩중...
-              <ClipLoader />
-            </span>
-          ) : (
-            <span>{children}</span>
-          )}
-          {rightIcon && <span>{rightIcon}</span>}
+          {content}
         </button>
       );
     }

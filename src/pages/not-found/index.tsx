@@ -1,10 +1,8 @@
-const NotFound = () => {
-  return (
-    <div>
-      <h2>404 Error</h2>
-      <p>Page Not Found</p>
-    </div>
-  );
+import NotFound from '@/components/ui/NotFound/NotFound';
+
+
+const NotFoundPage = () => {
+  return <NotFound />;
 };
 
-export default NotFound;
+export default NotFoundPage;

@@ -2,18 +2,19 @@ import TodosIndexRedirect from '@/pages/todos/TodosIndexRedirect';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from '@components/layout/Layout';
 import SignupPage from '@/pages/auth/signup';
+import NotFoundPage from '@/pages/not-found';
 import LoginPage from '@/pages/auth/login';
-import NotFound from '@/pages/not-found';
 import TodoPage from '@/pages/todos';
 import HomePage from '@/pages';
 
 import ProtectedRoute from './ProtectedRoute';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <NotFound />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
